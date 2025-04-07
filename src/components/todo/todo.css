@@ -1,0 +1,113 @@
+.todo-container {
+	max-width: 500px;
+	margin: 50px auto;
+	padding: 30px;
+	background: linear-gradient(145deg, #ffffff, #f0f0f0);
+	border-radius: 12px;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+	transition: transform 0.3s ease;
+}
+
+.todo-container:hover {
+	transform: translateY(-5px);
+}
+
+.todo-title {
+	font-size: 28px;
+	color: #2c3e50;
+	font-weight: 700;
+	margin-bottom: 25px;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	background: linear-gradient(45deg, #2c3e50, #3498db);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.todo-container input {
+	padding: 12px 15px;
+	width: 70%;
+	border: 2px solid #e0e0e0;
+	border-radius: 8px;
+	margin-right: 10px;
+	font-size: 16px;
+	transition: all 0.3s ease;
+	background-color: #f8f9fa;
+}
+
+.todo-container input:focus {
+	outline: none;
+	border-color: #3498db;
+	box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+	background-color: #ffffff;
+}
+
+.todo-container button {
+	padding: 12px 25px;
+	background: linear-gradient(45deg, #3498db, #2980b9);
+	color: white;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: 600;
+	transition: all 0.3s ease;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.todo-container button:hover {
+	background: linear-gradient(45deg, #2980b9, #3498db);
+	transform: translateY(-2px);
+	box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.todo-container button:active {
+	transform: translateY(0);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.todo-container > div {
+	margin-bottom: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.todo-new {
+	width: 100%;
+	display: flex;
+	gap: 15px;
+	justify-content: center;
+}
+
+.todo-data {
+	margin-top: 20px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	padding: 15px;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.todo-image {
+	display: flex;
+	justify-content: center;
+	margin-top: 30px;
+}
+
+.todo-image img {
+	width: 150px;
+	height: 150px;
+	animation: spin 12s linear infinite;
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
