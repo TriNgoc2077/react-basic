@@ -3,11 +3,20 @@ import TodoNew from "./components/todo/todoNew";
 import TodoData from "./components/todo/todoData";
 import reactLogo from "./assets/react.svg";
 const App = () => {
+	const cnt = "Cao Tri Ngoc";
+	const age = 20;
+	const data = {
+		address: "Ho Chi Minh",
+		phone: "0909090909",
+	};
+	const addNewTodo = (name) => {
+		alert(`Hello ${name}`);
+	};
 	return (
 		<div className="todo-container">
 			<div className="todo-title">Todo List</div>
-			<TodoNew />
-			<TodoData />
+			<TodoNew addNewTodo={addNewTodo} />
+			<TodoData name={cnt} age={age} data={data} />
 			<div className="todo-image">
 				<img src={reactLogo} alt="todo" />
 			</div>
