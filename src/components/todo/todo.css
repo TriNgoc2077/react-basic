@@ -83,12 +83,61 @@
 
 .todo-data {
 	margin-top: 20px;
-	border-radius: 5px;
-	border: 1px solid #ccc;
-	padding: 15px;
 	display: flex;
 	flex-direction: column;
-	gap: 15px;
+	gap: 10px;
+}
+
+.todo-data > div {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 12px 15px;
+	background: linear-gradient(145deg, #ffffff, #f8f9fa);
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+	transition: all 0.3s ease;
+	width: 100%;
+	max-width: 450px;
+	margin: 0 auto;
+}
+
+.todo-data > div:hover {
+	transform: translateX(5px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.todo-item {
+	font-size: 16px;
+	color: #2c3e50;
+	flex-grow: 1;
+	margin-right: 20px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 300px;
+}
+
+.delete-item {
+	padding: 6px 12px;
+	background: linear-gradient(45deg, #e74c3c, #c0392b);
+	color: white;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: 500;
+	transition: all 0.3s ease;
+	text-align: center;
+}
+
+.delete-item:hover {
+	background: linear-gradient(45deg, #c0392b, #e74c3c);
+	transform: scale(1.05);
+}
+
+.delete-item:active {
+	transform: scale(0.95);
 }
 
 .todo-image {

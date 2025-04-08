@@ -2,11 +2,12 @@ import { useState } from "react";
 
 const TodoNew = (props) => {
 	// useState hook (getter, setter)
-	const [valueInput, setvalueInput] = useState("Watching Ytb");
+	const [valueInput, setvalueInput] = useState("");
 	const { addNewTodo } = props;
 	// addNewTodo("Ngoc");
 	const handleClick = () => {
-		console.log(">> check value", valueInput);
+		addNewTodo(valueInput);
+		setvalueInput("");
 	};
 	const handleOnChange = (name) => {
 		setvalueInput(name);
@@ -16,6 +17,7 @@ const TodoNew = (props) => {
 			<input
 				type="text"
 				placeholder="Enter your task"
+				value={valueInput}
 				onChange={(event) => handleOnChange(event.target.value)}
 			/>
 			<button onClick={handleClick}>Add</button>
