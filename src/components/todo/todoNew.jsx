@@ -4,7 +4,6 @@ const TodoNew = (props) => {
 	// useState hook (getter, setter)
 	const [valueInput, setvalueInput] = useState("");
 	const { addNewTodo } = props;
-	// addNewTodo("Ngoc");
 	const handleClick = () => {
 		addNewTodo(valueInput);
 		setvalueInput("");
