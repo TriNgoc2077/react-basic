@@ -1,5 +1,6 @@
 import React from "react";
 import { Space, Table, Tag } from "antd";
+import { fetchAllUserAPI } from "../../services/api.service";
 const UserTable = () => {
 	const columns = [
 		{
@@ -72,6 +73,12 @@ const UserTable = () => {
 			tags: ["cool", "teacher"],
 		},
 	];
+	const loadUser = () => {
+		console.log(">>>> Loading......");
+		fetchAllUserAPI();
+		console.log("End loading.");
+	};
+	loadUser();
 	return <Table columns={columns} dataSource={data} />;
 };
 export default UserTable;
