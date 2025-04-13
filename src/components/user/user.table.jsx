@@ -1,18 +1,47 @@
 import React, { useState } from "react";
-import { Table } from "antd";
+import { notification, Popconfirm, Table } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import UpdateUserModal from "./update-user.modal";
+import UpdateUserModal from "./update.user.modal";
+import ViewUserDetail from "./view.user.detail";
+import { deleteUserAPI } from "../../services/api.service";
 const UserTable = (props) => {
-	const { dataSource } = props;
+	const { dataSource, loadData } = props;
 	const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
 	const [dataUpdate, setDataUpdate] = useState(null);
+	const [isDetailOpen, setIsDetailOpen] = useState(false);
+	const [dataDetail, setDataDetail] = useState(null);
 
+	const handleDeleteUser = async (id) => {
+		const response = await deleteUserAPI(id);
+		if (response.data) {
+			notification.success({
+				message: "delete user",
+				description: "xóa user thành công",
+			});
+			await loadData();
+		} else {
+			notification.error({
+				message: "Error delete user",
+				description: JSON.stringify(response.message),
+			});
+		}
+	};
 	const columns = [
 		{
 			title: "ID",
 			dataIndex: "_id",
 			render: (_, record) => {
-				return <a href="#">{record._id}</a>;
+				return (
+					<a
+						href="#"
+						onClick={() => {
+							setDataDetail(record);
+							setIsDetailOpen(true);
+						}}
+					>
+						{record._id}
+					</a>
+				);
 			},
 		},
 		{
@@ -43,14 +72,24 @@ const UserTable = (props) => {
 						}}
 						style={{ color: "#6d28d9", cursor: "pointer" }}
 					/>
-					<DeleteOutlined
-						style={{ color: "#dc2626", cursor: "pointer" }}
-					/>
+					<Popconfirm
+						title="Xóa người dùng"
+						description="Bạn chắc chắn xóa
+						người dùng này ?"
+						onConfirm={() => handleDeleteUser(record._id)}
+						okText="Yes"
+						cancelText="No"
+						placement="left"
+					>
+						<DeleteOutlined
+							style={{ color: "#dc2626", cursor: "pointer" }}
+						/>
+					</Popconfirm>
 				</div>
 			),
 		},
 	];
-
+	console.log(dataDetail);
 	return (
 		<>
 			<UpdateUserModal
@@ -58,8 +97,15 @@ const UserTable = (props) => {
 				setIsModalUpdateOpen={setIsModalUpdateOpen}
 				dataUpdate={dataUpdate}
 				setDataUpdate={setDataUpdate}
+				loadData={loadData}
 			/>
 			<Table columns={columns} dataSource={dataSource} rowKey="_id" />
+			<ViewUserDetail
+				dataDetail={dataDetail}
+				setDataDetail={setDataDetail}
+				isDetailOpen={isDetailOpen}
+				setIsDetailOpen={setIsDetailOpen}
+			/>
 		</>
 	);
 };
