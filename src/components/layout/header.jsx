@@ -5,6 +5,7 @@ import { Menu } from "antd";
 import {
 	BookOutlined,
 	HomeOutlined,
+	LoginOutlined,
 	SettingOutlined,
 	UserOutlined,
 } from "@ant-design/icons";
@@ -35,21 +36,30 @@ const Header = () => {
 			key: "books",
 			icon: <BookOutlined />,
 		},
-		{
-			label: "Cài đặt",
-			key: "setting",
-			icon: <SettingOutlined />,
-			children: [
-				{
-					label: <NavLink to="/login">Đăng nhập</NavLink>,
-					key: "login",
-				},
-				{
-					label: "Đăng xuất",
-					key: "logout",
-				},
-			],
-		},
+		...(!user.id
+			? [
+					{
+						label: <NavLink to={"/login"}>Đăng nhập</NavLink>,
+						key: "login",
+						icon: <LoginOutlined></LoginOutlined>,
+					},
+			  ]
+			: []),
+		...(user.id
+			? [
+					{
+						label: `Welcome ${user.fullName}`,
+						key: "stting",
+						icon: <SettingOutlined />,
+						children: [
+							{
+								label: "Đăng xuất",
+								key: "logout",
+							},
+						],
+					},
+			  ]
+			: []),
 	];
 	return (
 		<Menu

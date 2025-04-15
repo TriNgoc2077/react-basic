@@ -8,7 +8,7 @@ export default function ErrorPage() {
 	return (
 		<div>
 			<Result
-				status={error.status}
+				status="404"
 				title="Oops!"
 				subTitle={error.statusText || error.message}
 				extra={

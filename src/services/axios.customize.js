@@ -2,15 +2,24 @@ import axios from "axios";
 
 const instance = axios.create({
 	baseURL: import.meta.env.VITE_BACKEND_URL,
-	headers: {
-		"Content-Type": "application/json",
-		Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`,
-	},
+	// headers: {
+	// 	"Content-Type": "application/json",
+	// 	Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`,
+	// },
 });
 // instance.defaults.headers.common["Authorization"] = AUTH_TOKEN;
 
 instance.interceptors.request.use(
 	function (config) {
+		if (
+			typeof window !== "undefined" &&
+			window &&
+			window.localStorage &&
+			window.localStorage.getItem("access_token")
+		) {
+			config.headers.Authorization =
+				"Bearer " + window.localStorage.getItem("access_token");
+		}
 		return config;
 	},
 	function (error) {
