@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, Navigate, NavLink } from "react-router-dom";
 import "./header.css";
-import { Menu } from "antd";
+import { Menu, message } from "antd";
 import {
 	BookOutlined,
 	HomeOutlined,
@@ -10,15 +10,33 @@ import {
 	UserOutlined,
 } from "@ant-design/icons";
 import { AuthContext } from "../context/auth.context";
+import { SpaceContext } from "antd/es/space";
+import { logoutAPI } from "../../services/api.service";
 
 const Header = () => {
 	const [current, setCurrent] = useState("");
 
-	const { user } = useContext(AuthContext);
+	const { user, setUser } = useContext(AuthContext);
 
 	const onClick = (e) => {
 		console.log("click ", e);
 		setCurrent(e.key);
+	};
+	const handleLogout = async () => {
+		const res = await logoutAPI();
+		if (res.data) {
+			localStorage.removeItem("access_token");
+			setUser({
+				id: "",
+				email: "",
+				phone: "",
+				fullName: "",
+				role: "",
+				avatar: "",
+			});
+			message.success("Đăng xuất thành công !");
+			Navigate("/");
+		}
 	};
 	const items = [
 		{
@@ -53,7 +71,11 @@ const Header = () => {
 						icon: <SettingOutlined />,
 						children: [
 							{
-								label: "Đăng xuất",
+								label: (
+									<span onClick={handleLogout}>
+										Đăng xuất
+									</span>
+								),
 								key: "logout",
 							},
 						],
