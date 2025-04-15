@@ -1,4 +1,4 @@
-import { Button, Checkbox, Form, Input, notification } from "antd";
+import { Button, Checkbox, Form, Input, notification, Row, Col } from "antd";
 import { registerUserAPI } from "../services/api.service";
 import { useNavigate } from "react-router-dom";
 const RegisterPage = () => {
@@ -34,76 +34,78 @@ const RegisterPage = () => {
 			onFinish={onFinish}
 			// onFinishFailed={onFinishFailed}
 		>
-			<div
-				style={{
-					margin: "50px",
-					// display: "flex",
-					// flexDirection: "column",
-				}}
-			>
-				<Form.Item
-					label="Full Name"
-					name="fullName"
-					rules={[
-						{
-							required: true,
-							message: "PLease input your name !",
-						},
-					]}
-				>
-					<Input></Input>
-				</Form.Item>
-				<Form.Item
-					label="Email"
-					name="email"
-					rules={[
-						{
-							required: true,
-							message: "PLease input your email !",
-						},
-					]}
-				>
-					<Input></Input>
-				</Form.Item>
-				<Form.Item
-					label="Password"
-					name="password"
-					rules={[
-						{
-							required: true,
-							message: "PLease input your password !",
-						},
-					]}
-				>
-					<Input.Password></Input.Password>
-				</Form.Item>
-				<Form.Item
-					label="Phone number"
-					name="phone"
-					rules={[
-						{
-							required: true,
-							pattern: new RegExp(/\d+/g),
-							message: "Wrong format !",
-						},
-					]}
-				>
-					<Input></Input>
-				</Form.Item>
-				<Button type="primary" htmlType="submit">
-					Register
-				</Button>
-				<Button
-					onClick={() => {
-						form.setFieldsValue({
-							email: "tringoc@gmai.com",
-						});
-						console.log(form.getFieldsValue());
-					}}
-				>
-					Test
-				</Button>
-			</div>
+			<Row justify={"center"}>
+				<Col xs={24} md={8}>
+					<Form.Item
+						label="Full Name"
+						name="fullName"
+						rules={[
+							{
+								required: true,
+								message: "PLease input your name !",
+							},
+						]}
+					>
+						<Input></Input>
+					</Form.Item>
+				</Col>
+			</Row>
+			<Row justify={"center"}>
+				<Col xs={24} md={8}>
+					<Form.Item
+						label="Email"
+						name="email"
+						rules={[
+							{
+								required: true,
+								message: "PLease input your email !",
+							},
+						]}
+					>
+						<Input></Input>
+					</Form.Item>
+				</Col>
+			</Row>
+			<Row justify={"center"}>
+				<Col xs={24} md={8}>
+					<Form.Item
+						label="Password"
+						name="password"
+						rules={[
+							{
+								required: true,
+								message: "PLease input your password !",
+							},
+						]}
+					>
+						<Input.Password></Input.Password>
+					</Form.Item>
+				</Col>
+			</Row>
+			<Row justify={"center"}>
+				<Col xs={24} md={8}>
+					<Form.Item
+						label="Phone number"
+						name="phone"
+						rules={[
+							{
+								required: true,
+								pattern: new RegExp(/\d+/g),
+								message: "Wrong format !",
+							},
+						]}
+					>
+						<Input></Input>
+					</Form.Item>
+				</Col>
+			</Row>
+			<Row justify={"center"}>
+				<Col xs={24} md={8}>
+					<Button type="primary" htmlType="submit">
+						Register
+					</Button>
+				</Col>
+			</Row>
 		</Form>
 	);
 };
