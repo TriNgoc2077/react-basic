@@ -31,6 +31,21 @@ const registerUserAPI = (fullName, email, password, phone) => {
 	});
 };
 
+const loginUserAPI = (email, password) => {
+	const URL_BACKEND = "api/v1/auth/login";
+	const data = {
+		username: email,
+		password,
+		delay: 500,
+	};
+	return axios.post(URL_BACKEND, data, {
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`,
+		},
+	});
+};
+
 const updateUserAPI = (_id, fullName, phone) => {
 	const URL_BACKEND = "api/v1/user";
 	const data = {
@@ -103,4 +118,5 @@ export {
 	deleteUserAPI,
 	handleUploadFile,
 	updateUserAvatarAPI,
+	loginUserAPI,
 };
