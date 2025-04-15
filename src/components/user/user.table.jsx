@@ -5,7 +5,15 @@ import UpdateUserModal from "./update.user.modal";
 import ViewUserDetail from "./view.user.detail";
 import { deleteUserAPI } from "../../services/api.service";
 const UserTable = (props) => {
-	const { dataSource, loadData } = props;
+	const {
+		dataSource,
+		loadData,
+		current,
+		pageSize,
+		total,
+		setCurrent,
+		setPageSize,
+	} = props;
 	const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
 	const [dataUpdate, setDataUpdate] = useState(null);
 	const [isDetailOpen, setIsDetailOpen] = useState(false);
@@ -27,6 +35,12 @@ const UserTable = (props) => {
 		}
 	};
 	const columns = [
+		{
+			title: "STT",
+			render: (_, record, index) => {
+				return <>{index + 1 + (current - 1) * pageSize}</>;
+			},
+		},
 		{
 			title: "ID",
 			dataIndex: "_id",
@@ -89,7 +103,22 @@ const UserTable = (props) => {
 			),
 		},
 	];
-	console.log(dataDetail);
+	const onChange = (pagination, filters, sorter, extra) => {
+		// change cureent
+		if (pagination && pagination.current) {
+			if (+pagination.current !== +current) {
+				setCurrent(+pagination.current);
+			}
+		}
+
+		//change page size
+		if (pagination && pagination.pageSize) {
+			if (+pagination.pageSize !== +pageSize) {
+				setPageSize(+pagination.pageSize);
+			}
+		}
+		console.log({ pagination, filters, sorter, extra });
+	};
 	return (
 		<>
 			<UpdateUserModal
@@ -99,7 +128,25 @@ const UserTable = (props) => {
 				setDataUpdate={setDataUpdate}
 				loadData={loadData}
 			/>
-			<Table columns={columns} dataSource={dataSource} rowKey="_id" />
+			<Table
+				columns={columns}
+				dataSource={dataSource}
+				rowKey="_id"
+				pagination={{
+					current: current,
+					pageSize: pageSize,
+					showSizeChanger: true,
+					total: total,
+					showTotal: (total, range) => {
+						return (
+							<div>
+								{range[0]}-{range[1]} trên {total} rows
+							</div>
+						);
+					},
+				}}
+				onChange={onChange}
+			/>
 			<ViewUserDetail
 				dataDetail={dataDetail}
 				setDataDetail={setDataDetail}
