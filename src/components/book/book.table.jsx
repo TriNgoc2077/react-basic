@@ -1,8 +1,9 @@
 import { useState } from "react";
 import UpdateBookModal from "./update.book";
 import ViewBookDetail from "./view.book.detail";
-import { Button, Popconfirm, Table } from "antd";
+import { Button, message, notification, Popconfirm, Table } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { deleteBookAPI } from "../../services/api.service";
 
 const BookTable = (props) => {
 	const {
@@ -19,7 +20,18 @@ const BookTable = (props) => {
 	const [dataUpdate, setDataUpdate] = useState(null);
 	const [isDetailOpen, setIsDetailOpen] = useState(false);
 	const [dataDetail, setDataDetail] = useState(null);
-	const handleDeleteBook = () => {};
+	const handleDeleteBook = async (id) => {
+		const res = await deleteBookAPI(id);
+		if (res.data) {
+			message.success("Đã xóa sách thành công");
+			await loadData();
+		} else {
+			notification.error({
+				message: "Xóa sách thất bại !",
+				description: res.message,
+			});
+		}
+	};
 
 	const columns = [
 		{
@@ -131,7 +143,7 @@ const BookTable = (props) => {
 				setDataUpdate={setDataUpdate}
 				loadData={loadData}
 			/>
-			<div
+			{/* <div
 				style={{
 					marginTop: "10px",
 					display: "flex",
@@ -140,7 +152,7 @@ const BookTable = (props) => {
 			>
 				<h3>Table Book</h3>
 				<Button type="primary">Create Book</Button>
-			</div>
+			</div> */}
 			<Table
 				columns={columns}
 				dataSource={dataSource}
