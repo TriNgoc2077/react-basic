@@ -16,8 +16,8 @@ const UserPage = () => {
 		const response = await fetchAllUserAPI(current, pageSize);
 		if (response.data) {
 			setUsers(response.data.result);
-			setCurrent(response.data.meta.current);
-			setPageSize(response.data.meta.pageSize);
+			// setCurrent(response.data.meta.current);
+			// setPageSize(response.data.meta.pageSize);
 			setTotal(response.data.meta.total);
 		}
 	};
