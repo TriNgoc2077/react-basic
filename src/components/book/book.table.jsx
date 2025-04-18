@@ -14,12 +14,14 @@ const BookTable = (props) => {
 		total,
 		setCurrent,
 		setPageSize,
+		isLoading,
 	} = props;
 	console.log(">>>> check books", dataSource);
 	const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
 	const [dataUpdate, setDataUpdate] = useState(null);
 	const [isDetailOpen, setIsDetailOpen] = useState(false);
 	const [dataDetail, setDataDetail] = useState(null);
+
 	const handleDeleteBook = async (id) => {
 		const res = await deleteBookAPI(id);
 		if (res.data) {
@@ -171,6 +173,7 @@ const BookTable = (props) => {
 					},
 				}}
 				onChange={onChange}
+				loading={isLoading}
 			/>
 			<ViewBookDetail
 				dataDetail={dataDetail}

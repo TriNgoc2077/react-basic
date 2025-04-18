@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Link, Navigate, NavLink } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, Navigate, NavLink, useLocation } from "react-router-dom";
 import "./header.css";
 import { Menu, message } from "antd";
 import {
@@ -15,8 +15,20 @@ import { logoutAPI } from "../../services/api.service";
 
 const Header = () => {
 	const [current, setCurrent] = useState("");
-
 	const { user, setUser } = useContext(AuthContext);
+	const location = useLocation();
+
+	useEffect(() => {
+		const allRoutes = ["users", "books"];
+		const currentRoute = allRoutes.find(
+			(item) => `/${item}` === location.pathname
+		);
+		if (currentRoute) {
+			setCurrent(currentRoute);
+		} else {
+			setCurrent("home");
+		}
+	});
 
 	const onClick = (e) => {
 		console.log("click ", e);

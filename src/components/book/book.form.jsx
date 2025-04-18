@@ -12,12 +12,17 @@ const BookForm = (props) => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [selectedFile, setSelectedFile] = useState(null);
 	const [previewImage, setPreviewImage] = useState(null);
+	const [isBtnLoading, setIsBtnLoading] = useState(false);
+
 	const handleSubmitBtn = async () => {
+		setIsBtnLoading(true);
 		if (!selectedFile) {
 			notification.error({
 				message: "Tạo sách",
 				description: "Vui lòng tải thumbnail !",
 			});
+			setIsBtnLoading(false);
+
 			return;
 		}
 		const uploadThumbnail = await handleUploadFile(selectedFile, "book");
@@ -26,6 +31,8 @@ const BookForm = (props) => {
 				message: "Không thể upload thumbnail !",
 				description: uploadThumbnail.message,
 			});
+			setIsBtnLoading(false);
+
 			return;
 		}
 		const data = {
@@ -38,6 +45,7 @@ const BookForm = (props) => {
 			thumbnail: uploadThumbnail.data.fileUploaded,
 			slider: [],
 		};
+		// setIsBtnLoading(true);
 		const res = await createBookAPI(data);
 		if (res.data) {
 			notification.success({
@@ -52,6 +60,7 @@ const BookForm = (props) => {
 				description: res.data,
 			});
 		}
+		setIsBtnLoading(false);
 	};
 	const resetAndCloseModal = () => {
 		setIsModalOpen(false);
@@ -98,6 +107,7 @@ const BookForm = (props) => {
 					style: {
 						backgroundColor: "#6d28d9",
 					},
+					loading: isBtnLoading,
 				}}
 			>
 				<div
