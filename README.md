@@ -1,6 +1,7 @@
 # React + Vite
 
 Deployed at: https://todo-book-five.vercel.app
+Test Account: username: admin@gmail.com password: 123456
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
